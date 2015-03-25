@@ -13,8 +13,6 @@ public class MenuBar extends VerticalLayout {
     private Button testChatBtn = new Button("Test chat");
 
     public MenuBar() {
-        setWidth(150.0f, Unit.PIXELS);
-        setHeight(100.0f, Unit.PERCENTAGE);
         setStyleName("menu-bar");
 
         initLayout();
