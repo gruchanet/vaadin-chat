@@ -1,16 +1,16 @@
 package com.gruchanet.vaadin.chat.components.parts;
 
+import com.gruchanet.vaadin.chat.MainUI;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 public class MenuBar extends VerticalLayout {
 
-    private Button createRoomBtn = new Button("Create room");
-    private Button joinRoomBtn = new Button("Join room");
-    private Button privateChatBtn = new Button("Private chat");
-
-    private Button testChatBtn = new Button("Test chat");
+    private Button createRoomBtn = new Button("Create room", FontAwesome.PLUS);
+    private Button joinRoomBtn = new Button("Join room", FontAwesome.SIGN_IN);
+    private Button privateChatBtn = new Button("Private chat", FontAwesome.COMMENTS_O);
 
     public MenuBar() {
         setStyleName("menu-bar");
@@ -19,13 +19,12 @@ public class MenuBar extends VerticalLayout {
     }
 
     private void initLayout() {
-        createRoomBtn.setIcon(FontAwesome.PLUS);
-        joinRoomBtn.setIcon(FontAwesome.SIGN_IN);
-        privateChatBtn.setIcon(FontAwesome.COMMENTS_O);
-
         createRoomBtn.setStyleName("solid-button dark-button icon-align-top");
         joinRoomBtn.setStyleName("solid-button dark-button icon-align-top");
         privateChatBtn.setStyleName("solid-button dark-button icon-align-top");
+
+        joinRoomBtn.addClickListener(new ButtonListener(MainUI.CHAT_ROOM));
+        privateChatBtn.addClickListener(new ButtonListener(MainUI.PRIVATE_CHAT));
 
         addComponents(
                 createRoomBtn,
@@ -33,9 +32,21 @@ public class MenuBar extends VerticalLayout {
                 privateChatBtn
         );
 
-        // test components
-        testChatBtn.setIcon(FontAwesome.WECHAT);
-        testChatBtn.setStyleName("solid-button dark-button icon-align-top");
-        addComponent(testChatBtn);
+        createRoomBtn.setEnabled(false);
+        privateChatBtn.setEnabled(false);
+    }
+
+    class ButtonListener implements Button.ClickListener {
+
+        private String navigationLink;
+
+        public ButtonListener(String navigationLink) {
+            this.navigationLink = navigationLink;
+        }
+
+        @Override
+        public void buttonClick(Button.ClickEvent clickEvent) {
+            UI.getCurrent().getNavigator().navigateTo(navigationLink);
+        }
     }
 }

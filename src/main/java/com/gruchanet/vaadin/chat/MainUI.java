@@ -24,8 +24,8 @@ public class MainUI extends UI {
     private Navigator navigator;
     private MainLayout layout;
 
-    private static final String PRIVATE_CHAT_VIEW = "chat/private";
-    private static final String CHAT_ROOM_VIEW = "chat/room";
+    public static final String CHAT_ROOM = "chat/room";
+    public static final String PRIVATE_CHAT = "chat/private";
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -47,11 +47,11 @@ public class MainUI extends UI {
 
     private void registerViews() {
         navigator.addView("", new EmptyChatView());
-        navigator.addView(PRIVATE_CHAT_VIEW, new PrivateChatView());
-        navigator.addView(CHAT_ROOM_VIEW, new ChatRoomView());
+        navigator.addView(CHAT_ROOM, new ChatRoomView());
+        navigator.addView(PRIVATE_CHAT, new PrivateChatView());
     }
 
-    @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
+    @WebServlet(urlPatterns = "/chat/*", name = "MainUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = MainUI.class, productionMode = false)
-    public static class MyUIServlet extends VaadinServlet {}
+    public static class MainUIServlet extends VaadinServlet {}
 }

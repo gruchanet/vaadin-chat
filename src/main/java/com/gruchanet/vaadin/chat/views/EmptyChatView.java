@@ -6,6 +6,10 @@ import com.vaadin.ui.VerticalLayout;
 
 public class EmptyChatView extends VerticalLayout implements View {
 
+    public EmptyChatView() {
+        setSizeFull();
+    }
+
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {}
 }
