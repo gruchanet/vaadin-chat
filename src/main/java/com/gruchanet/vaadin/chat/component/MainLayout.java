@@ -1,22 +1,23 @@
-package com.gruchanet.vaadin.chat.components.parts;
+package com.gruchanet.vaadin.chat.component;
 
+import com.gruchanet.vaadin.chat.component.parts.menu.ChatMenu;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Layout;
 
-public class InnerLayout extends HorizontalLayout {
+public class MainLayout extends HorizontalLayout {
 
-    private MenuBar menuBar = new MenuBar();
+    private ChatMenu chatMenu = new ChatMenu();
     private HorizontalLayout bodyContent = new HorizontalLayout();
 
-    public InnerLayout() {
-        setStyleName("full-size-layout");
+    public MainLayout() {
+        setSizeFull();
 
         initLayout();
     }
 
     private void initLayout() {
         addComponents(
-                menuBar,
+                chatMenu,
                 bodyContent
         );
     }

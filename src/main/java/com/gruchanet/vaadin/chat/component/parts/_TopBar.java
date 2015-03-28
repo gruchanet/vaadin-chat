@@ -1,9 +1,7 @@
-package com.gruchanet.vaadin.chat.components.parts;
+package com.gruchanet.vaadin.chat.component.parts;
 
 import com.gruchanet.vaadin.chat.domain.User;
 import com.gruchanet.vaadin.chat.helper.RandomStringGenerator;
-import com.vaadin.data.fieldgroup.FieldGroup;
-import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.Button;
@@ -11,7 +9,7 @@ import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 
-public class TopBar extends HorizontalLayout {
+public class _TopBar extends HorizontalLayout {
 
     private Button homeBtn = new Button(null, FontAwesome.HOME);
     private FormLayout userForm = new FormLayout();
@@ -20,7 +18,7 @@ public class TopBar extends HorizontalLayout {
     private ObjectProperty userName = new ObjectProperty<>(user.getName());
     private TextField userNameInput = new TextField("Your name: ", userName);
 
-    public TopBar() {
+    public _TopBar() {
         setMargin(true);
         setSpacing(true);
         setStyleName("top-bar");

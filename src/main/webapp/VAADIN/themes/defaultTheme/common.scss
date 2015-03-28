@@ -1,0 +1,22 @@
+@mixin chat-common {
+  .v-menubar-user-menu:after {
+    display: none;
+  }
+
+  .v-menubar-user-menu > .v-menubar-menuitem {
+    display: block;
+    padding: 0;
+    max-width: 90%;
+    margin: 0 auto;
+    img.v-icon {
+      border: none !important;
+    }
+  }
+
+  .v-ui[width-range~="0-800px"] {
+    .v-menubar-user-menu > .v-menubar-menuitem {
+      max-width: none;
+      margin-right: .5em;
+    }
+  }
+}

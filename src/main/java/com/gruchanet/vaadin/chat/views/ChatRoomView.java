@@ -12,6 +12,6 @@ public class ChatRoomView extends VerticalLayout implements View {
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
-        // TODO: implementation + extends Layout!
+        // TODO: implementation
     }
 }

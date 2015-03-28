@@ -1,5 +1,6 @@
 package com.gruchanet.vaadin.chat.domain;
 
+import java.util.Date;
 import java.util.UUID;
 
 public class Message {
@@ -7,10 +8,12 @@ public class Message {
     private UUID id = UUID.randomUUID();
     private User user;
     private String message;
+    private Date sentAt;
 
     public Message(User user, String message) {
         this.user = user;
         this.message = message;
+        this.sentAt = new Date();
     }
 
     public UUID getId() {
@@ -31,5 +34,9 @@ public class Message {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Date getSentAt() {
+        return sentAt;
     }
 }
