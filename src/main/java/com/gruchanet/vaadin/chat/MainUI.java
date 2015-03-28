@@ -3,9 +3,8 @@ package com.gruchanet.vaadin.chat;
 import javax.servlet.annotation.WebServlet;
 
 import com.gruchanet.vaadin.chat.component.MainLayout;
-import com.gruchanet.vaadin.chat.component.parts.menu.MenuItemType;
+import com.gruchanet.vaadin.chat.component.part.menu.MenuItemType;
 import com.gruchanet.vaadin.chat.domain.User;
-import com.gruchanet.vaadin.chat.event.MenuItemChangeEvent;
 import com.gruchanet.vaadin.chat.helper.RandomStringGenerator;
 import com.gruchanet.vaadin.chat.helper.Session;
 import com.gruchanet.vaadin.chat.views.ChatRoomView;
@@ -16,10 +15,8 @@ import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.navigator.Navigator;
-import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.*;
 
 /**

@@ -1,9 +1,8 @@
-package com.gruchanet.vaadin.chat.component.parts.menu;
+package com.gruchanet.vaadin.chat.component.part.menu;
 
 import com.gruchanet.vaadin.chat.domain.User;
 import com.gruchanet.vaadin.chat.helper.Session;
 import com.vaadin.server.ExternalResource;
-import com.vaadin.server.FontAwesome;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.themes.ValoTheme;

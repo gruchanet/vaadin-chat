@@ -1,6 +1,6 @@
 package com.gruchanet.vaadin.chat.component;
 
-import com.gruchanet.vaadin.chat.component.parts.menu.ChatMenu;
+import com.gruchanet.vaadin.chat.component.part.menu.ChatMenu;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Layout;
 

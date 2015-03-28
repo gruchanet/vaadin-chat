@@ -1,4 +1,4 @@
-package com.gruchanet.vaadin.chat.component.parts.menu;
+package com.gruchanet.vaadin.chat.component.part.menu;
 
 import com.gruchanet.vaadin.chat.views.ChatRoomView;
 import com.gruchanet.vaadin.chat.views.PrivateChatView;
