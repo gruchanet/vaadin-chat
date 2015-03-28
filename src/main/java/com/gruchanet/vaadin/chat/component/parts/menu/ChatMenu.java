@@ -25,12 +25,13 @@ public class ChatMenu extends CustomComponent {
         menuContent.addStyleName("no-vertical-drag-hints");
         menuContent.addStyleName("no-horizontal-drag-hints");
         menuContent.setWidth(null);
-        menuContent.setHeight("100%");
+        menuContent.setHeight(100.0f, Unit.PERCENTAGE);
 
-        menuContent.addComponent(buildTitle());
-        menuContent.addComponent(buildToggleButton());
-        menuContent.addComponent(buildUserMenu());
-        menuContent.addComponent(buildMenuItems());
+        menuContent.addComponents(
+                buildTitle(),
+                buildUserMenu(),
+                buildMenuItems()
+        );
 
         return menuContent;
     }
@@ -44,25 +45,6 @@ public class ChatMenu extends CustomComponent {
         logoWrapper.addStyleName("valo-menu-title");
 
         return logoWrapper;
-    }
-
-    private Component buildToggleButton() {
-        final Button menuToggleButton = new Button("Menu", new Button.ClickListener() {
-            @Override
-            public void buttonClick(final Button.ClickEvent event) {
-                if (getCompositionRoot().getStyleName().contains("valo-menu-visible")) {
-                    getCompositionRoot().removeStyleName("valo-menu-visible");
-                } else {
-                    getCompositionRoot().addStyleName("valo-menu-visible");
-                }
-            }
-        });
-        menuToggleButton.setIcon(FontAwesome.LIST);
-        menuToggleButton.addStyleName("valo-menu-toggle");
-        menuToggleButton.addStyleName(ValoTheme.BUTTON_BORDERLESS);
-        menuToggleButton.addStyleName(ValoTheme.BUTTON_SMALL);
-
-        return menuToggleButton;
     }
 
     private Component buildUserMenu() {

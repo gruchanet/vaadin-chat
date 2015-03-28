@@ -3,3 +3,6 @@
 
 # Build
 target
+
+# Styles cache
+src/main/webapp/VAADIN/themes/defaultTheme/styles.scss.cache

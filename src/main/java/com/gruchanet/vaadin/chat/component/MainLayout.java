@@ -11,15 +11,21 @@ public class MainLayout extends HorizontalLayout {
 
     public MainLayout() {
         setSizeFull();
+        addStyleName("mainview");
 
         initLayout();
     }
 
     private void initLayout() {
+        bodyContent.addStyleName("view-content");
+        bodyContent.setSizeFull();
+
         addComponents(
                 chatMenu,
                 bodyContent
         );
+
+        setExpandRatio(bodyContent, 1.0f);
     }
 
     public Layout getBodyContent() {
