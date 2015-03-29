@@ -7,7 +7,6 @@ public class RandomStringGenerator {
 	}
 	
 	public static String generateRandomString(int length, Mode mode) throws Exception {
-
 		StringBuilder builder = new StringBuilder();
 		String characters = "";
 
@@ -32,6 +31,7 @@ public class RandomStringGenerator {
 			double index = Math.random() * charactersLength;
             builder.append(characters.charAt((int) index));
 		}
+
 		return builder.toString();
 	}
 }
