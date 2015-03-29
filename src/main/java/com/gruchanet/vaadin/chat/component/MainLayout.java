@@ -1,13 +1,13 @@
 package com.gruchanet.vaadin.chat.component;
 
 import com.gruchanet.vaadin.chat.component.menu.ChatMenu;
+import com.gruchanet.vaadin.chat.component.panel.ChatPanel;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Layout;
 
 public class MainLayout extends HorizontalLayout {
 
     private ChatMenu chatMenu = new ChatMenu();
-    private HorizontalLayout bodyContent = new HorizontalLayout();
+    private ChatPanel chatPanel = new ChatPanel();
 
     public MainLayout() {
         setSizeFull();
@@ -17,18 +17,15 @@ public class MainLayout extends HorizontalLayout {
     }
 
     private void initLayout() {
-        bodyContent.addStyleName("view-content");
-        bodyContent.setSizeFull();
-
         addComponents(
                 chatMenu,
-                bodyContent
+                chatPanel
         );
 
-        setExpandRatio(bodyContent, 1.0f);
+        setExpandRatio(chatPanel, 1.0f);
     }
 
-    public Layout getBodyContent() {
-        return bodyContent;
+    public ChatPanel getChatPanel() {
+        return chatPanel;
     }
 }

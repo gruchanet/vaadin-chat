@@ -1,11 +1,12 @@
 package com.gruchanet.vaadin.chat.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatRoom {
 
-    private List<User> users;
-    private List<Message> messages;
+    private List<User> users = new ArrayList<User>();
+    private List<Message> messages = new ArrayList<Message>();
 
     public List<User> getUsers() {
         return users;

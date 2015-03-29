@@ -80,7 +80,7 @@ public class ChatMenu extends CustomComponent {
 
     public final class MenuItemButton extends Button {
 
-//        private static final String STYLE_SELECTED = "selected"; // TODO: event on view change
+//        private static final String STYLE_SELECTED = "selected"; // TODO: event on view change + unregister from MessageBroadcaster
         private final MenuItemType menuItem;
 
         public MenuItemButton(final MenuItemType menuItem) {
@@ -96,7 +96,7 @@ public class ChatMenu extends CustomComponent {
             addClickListener(new ClickListener() {
                 @Override
                 public void buttonClick(final ClickEvent event) {
-                    UI.getCurrent().getNavigator().navigateTo(menuItem.getNavigationLink());
+//                    UI.getCurrent().getNavigator().navigateTo(menuItem.getNavigationLink()); // TODO: navigation
                 }
             });
         }

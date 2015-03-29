@@ -3,13 +3,18 @@ package com.gruchanet.vaadin.chat.component.panel;
 import com.gruchanet.vaadin.chat.component.message.MessageLayout;
 import com.gruchanet.vaadin.chat.domain.ChatRoom;
 import com.gruchanet.vaadin.chat.domain.Message;
-import com.gruchanet.vaadin.chat.domain.User;
+import com.gruchanet.vaadin.chat.helper.Session;
+import com.gruchanet.vaadin.chat.service.MessageBroadcaster;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.*;
 
 public class ChatPanel extends Panel {
 
     private ChatRoom chatRoom = new ChatRoom(); // TODO: event -> add message/user -> update layout
+
+    private VerticalLayout messagesContent;
+    private TextField messageInput;
+    private Button submitButton;
 
     public ChatPanel() {
         setCaption("Chat room");
@@ -19,6 +24,7 @@ public class ChatPanel extends Panel {
         setHeight(100.0f, Unit.PERCENTAGE);
 
         setContent(buildContent());
+        renderMessages();
     }
 
     private Component buildContent() {
@@ -39,42 +45,16 @@ public class ChatPanel extends Panel {
     }
 
     private Component buildMessagesContent() {
-        final VerticalLayout messagesContent = new VerticalLayout();
+        messagesContent = new VerticalLayout();
         messagesContent.setMargin(true);
         messagesContent.setSpacing(true);
         messagesContent.setStyleName("chat-content");
-
-        // TODO: test
-        messagesContent.addComponents(
-                new MessageLayout(new Message(
-                        new User("tester"),
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales." +
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales." +
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales." +
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales."
-                )),
-                new MessageLayout(new Message(
-                        new User("~anonymous"),
-                        "Dolore amino potes, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales." +
-                                "Dolore amino potes, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales." +
-                                "Dolore amino potes, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales." +
-                                "Dolore amino potes, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales."
-                )),
-                new MessageLayout(new Message(
-                        new User("~anon123"),
-                        "Dolore amino potes, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales." +
-                                "Dolore amino potes, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales." +
-                                "Dolore amino potes, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales." +
-                                "Dolore amino potes, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales."
-                ))
-        );
-        // TODO: END test
 
         return messagesContent;
     }
 
     private Component buildChatControls() {
-        final HorizontalLayout chatControls = new HorizontalLayout();
+        final HorizontalLayout chatControls = new HorizontalLayout(); // TODO: input submit
         chatControls.setMargin(true);
         chatControls.setWidth(100.0f, Unit.PERCENTAGE);
         chatControls.setStyleName("chat-controls");
@@ -94,7 +74,7 @@ public class ChatPanel extends Panel {
     }
 
     private TextField buildMessageInput() {
-        TextField messageInput = new TextField();
+        messageInput = new TextField();
         messageInput.setInputPrompt("Write message here...");
         messageInput.setWidth(100.0f, Unit.PERCENTAGE);
 
@@ -102,13 +82,27 @@ public class ChatPanel extends Panel {
     }
 
     private Button buildSubmitButton() {
-        Button submitBtn = new Button("Send", new Button.ClickListener() {
+        submitButton = new Button("Send", new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent clickEvent) {
-                // TODO:
+                MessageBroadcaster.broadcast(
+                        new Message(Session.getCurrentUser(), messageInput.getValue())
+                );
+                messageInput.clear();
+                // TODO: + input submit -> <enter>
             }
         });
 
-        return submitBtn;
+        return submitButton;
+    }
+
+    private void renderMessages() {
+        for (Message message : chatRoom.getMessages()) {
+            renderMessage(message);
+        }
+    }
+
+    public void renderMessage(Message message) {
+        messagesContent.addComponent(new MessageLayout(message));
     }
 }

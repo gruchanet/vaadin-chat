@@ -8,7 +8,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Resource;
 
-public enum MenuItemType {
+public enum MenuItemType { // TODO: navigation
     CREATE_ROOM( // TODO: ignore CREATE_ROOM MenuItemButton [3rd param -> null]
             HTMLFormatter.formatText("Create room", TextFormatType.STRIKE),
             FontAwesome.PLUS,
@@ -16,7 +16,7 @@ public enum MenuItemType {
             null
     ),
     JOIN_ROOM(
-            "Join room",
+            HTMLFormatter.formatText("Join room", TextFormatType.STRIKE),
             FontAwesome.SIGN_IN,
             "room",
             ChatRoomView.class
