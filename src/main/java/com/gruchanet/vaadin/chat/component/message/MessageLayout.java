@@ -78,27 +78,27 @@ public class MessageLayout extends GridLayout {
     }
 
     private Component buildMessageText(String message) {
-        Pattern p = Pattern.compile("(?:\\|([^|]+)\\||(\\S+))\\s*"); // (?:\|([^|]+)\||(\S+))\s*
+        Pattern p = Pattern.compile("(?:~([^~]+)~|(\\s*|\\S+\\s*))"); // (?:~([^~]+)~|(\s*|\S+\s*))
         Matcher m = p.matcher(message);
         StringBuffer s = new StringBuffer();
         while (m.find()) {
             String emoticon = m.group(1);
 
             if (emoticon != null) {
-                m.appendReplacement(s, fileToEmoticonImage(EmoticonType.get(m.group(1)).getFile()));
+                m.appendReplacement(s, fileToEmoticonImage(EmoticonType.get(m.group(1))));
             } else {
-                m.appendReplacement(s, m.group(0));
+                m.appendReplacement(s, m.group(0).replace(" ", "&nbsp;"));
             }
         }
 
         return new Label(s.toString(), ContentMode.HTML);
     }
 
-    private String fileToEmoticonImage(String file) {
+    private String fileToEmoticonImage(EmoticonType emoticon) {
         String imageURI = Page.getCurrent().getLocation().resolve("/") +
                 VaadinServlet.getCurrent().getServletContext().getContextPath() +
-                "VAADIN/emoticons/" + file;
+                "VAADIN/emoticons/" + emoticon.getFile();
 
-        return "<img src=\"" + imageURI + "\">";
+        return "<img src=\"" + imageURI + "\" title=\"" + emoticon.getText() + "\">";
     }
 }

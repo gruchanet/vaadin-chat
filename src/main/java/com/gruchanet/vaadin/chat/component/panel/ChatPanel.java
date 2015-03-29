@@ -173,7 +173,7 @@ public class ChatPanel extends Panel {
                             }
 
                             // put emoticon text
-                            String emoticonText = " " + EmoticonFormatter.encloseWithPipe(emoticon.getText()) + " ";
+                            String emoticonText = " " + EmoticonFormatter.encloseWithTidle(emoticon.getText()) + " ";
                             String newMessage = message.substring(0, inputCursorPosition) +
                                     emoticonText +
                                     message.substring(inputCursorPosition, messageInput.getValue().length());
