@@ -5,6 +5,8 @@ import com.gruchanet.vaadin.chat.domain.ChatRoom;
 import com.gruchanet.vaadin.chat.domain.Message;
 import com.gruchanet.vaadin.chat.helper.Session;
 import com.gruchanet.vaadin.chat.service.MessageBroadcaster;
+import com.vaadin.event.ShortcutAction;
+import com.vaadin.event.ShortcutListener;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.*;
 
@@ -14,7 +16,8 @@ public class ChatPanel extends Panel {
 
     private VerticalLayout messagesContent;
     private TextField messageInput;
-    private Button submitButton;
+//    private Button submitButton;
+    private Button emoticonsButton;
 
     public ChatPanel() {
         setCaption("Chat room");
@@ -24,7 +27,7 @@ public class ChatPanel extends Panel {
         setHeight(100.0f, Unit.PERCENTAGE);
 
         setContent(buildContent());
-        renderMessages();
+//        renderMessages();
     }
 
     private Component buildContent() {
@@ -59,48 +62,74 @@ public class ChatPanel extends Panel {
         chatControls.setWidth(100.0f, Unit.PERCENTAGE);
         chatControls.setStyleName("chat-controls");
 
-        TextField messageInput = buildMessageInput();
-        Button submitButton = buildSubmitButton();
+        messageInput = buildMessageInput();
+        messageInput.setImmediate(true);
+        messageInput.addShortcutListener(new ShortcutListener("Shortcut Name", ShortcutAction.KeyCode.ENTER, null) {
+            @Override
+            public void handleAction(Object sender, Object target) {
+                if (!messageInput.isEmpty()) {
+                    MessageBroadcaster.broadcast(
+                            new Message(Session.getCurrentUser(), messageInput.getValue())
+                    );
+                    messageInput.clear();
+                }
+            }
+        });
+//        Button submitButton = buildSubmitButton();
+        emoticonsButton = buildEmoticonsButton();
 
         chatControls.addComponents(
                 messageInput,
-                submitButton
+//                submitButton
+                emoticonsButton
         );
         chatControls.setExpandRatio(messageInput, 1.0f);
         chatControls.setComponentAlignment(messageInput, Alignment.MIDDLE_CENTER);
-        chatControls.setComponentAlignment(submitButton, Alignment.MIDDLE_CENTER);
+//        chatControls.setComponentAlignment(submitButton, Alignment.MIDDLE_CENTER); // TODO: emoticon button
 
         return chatControls;
     }
 
     private TextField buildMessageInput() {
-        messageInput = new TextField();
+        TextField messageInput = new TextField();
         messageInput.setInputPrompt("Write message here...");
         messageInput.setWidth(100.0f, Unit.PERCENTAGE);
 
         return messageInput;
     }
 
-    private Button buildSubmitButton() {
-        submitButton = new Button("Send", new Button.ClickListener() {
+//    private Button buildSubmitButton() {
+//        Button submitButton = new Button("Send", new Button.ClickListener() {
+//            @Override
+//            public void buttonClick(Button.ClickEvent clickEvent) {
+//                MessageBroadcaster.broadcast(
+//                        new Message(Session.getCurrentUser(), messageInput.getValue())
+//                );
+//                messageInput.clear();
+//                // TODO: + input submit -> <enter>
+//            }
+//        });
+//
+//        return submitButton;
+//    }
+
+    private Button buildEmoticonsButton() {
+        Button emoticonsButton = new Button("", new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent clickEvent) {
-                MessageBroadcaster.broadcast(
-                        new Message(Session.getCurrentUser(), messageInput.getValue())
-                );
-                messageInput.clear();
-                // TODO: + input submit -> <enter>
+                // TODO: emoticons handler
             }
         });
+        emoticonsButton.setIcon(FontAwesome.SMILE_O);
 
-        return submitButton;
+        return emoticonsButton;
     }
 
-    private void renderMessages() {
-        for (Message message : chatRoom.getMessages()) {
-            renderMessage(message);
-        }
-    }
+//    private void renderMessages() {
+//        for (Message message : chatRoom.getMessages()) {
+//            renderMessage(message);
+//        }
+//    }
 
     public void renderMessage(Message message) {
         messagesContent.addComponent(new MessageLayout(message));
