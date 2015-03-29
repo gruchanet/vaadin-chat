@@ -17,14 +17,16 @@ import java.util.regex.Pattern;
 
 public class MessageLayout extends GridLayout {
 
-    private boolean renderEmoticons;
+    private boolean renderMessageWithEmoticons;
 
     public MessageLayout(Message message) {
         this(message, true);
     }
 
-    public MessageLayout(Message message, boolean renderEmoticons) {
+    public MessageLayout(Message message, boolean renderMessageWithEmoticons) {
         super(5, 5);
+        this.renderMessageWithEmoticons = renderMessageWithEmoticons;
+
         setSizeFull();
         setStyleName("chat-message");
 
@@ -79,6 +81,14 @@ public class MessageLayout extends GridLayout {
     }
 
     private Component buildMessageText(String message) {
+        if (renderMessageWithEmoticons) {
+            return new Label(prepareMessageWithEmoticons(message), ContentMode.HTML);
+        } else {
+            return new Label(message);
+        }
+    }
+
+    private String prepareMessageWithEmoticons(String message) {
         Pattern p = Pattern.compile("(?:~([^~]*)~|(\\s*|\\S+\\s*))"); // (?:~([^~]*)~|(\s*|\S+\s*))
         Matcher m = p.matcher(message);
         StringBuffer s = new StringBuffer();
@@ -96,7 +106,7 @@ public class MessageLayout extends GridLayout {
             }
         }
 
-        return new Label(s.toString(), ContentMode.HTML);
+        return s.toString();
     }
 
     private String transformTextToEmoticon(String enclosedText) throws InvalidEmoticonTextException {
