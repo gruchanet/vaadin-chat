@@ -9,9 +9,6 @@ import com.vaadin.ui.UI;
 
 import javax.servlet.annotation.WebServlet;
 
-/**
- *
- */
 @Theme("defaultTheme")
 @Widgetset("com.gruchanet.vaadin.chat.MyAppWidgetset")
 public class DefaultUI extends UI {

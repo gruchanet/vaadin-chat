@@ -54,12 +54,6 @@ public class ChatMenu extends CustomComponent {
         settings.addStyleName("user-menu");
         settingsItem = settings.addItem("", new ExternalResource(user.getGravatarURL()), null);
         settingsItem.setText(user.getName());
-        settingsItem.addItem("Edit name/e-mail", new MenuBar.Command() {
-            @Override
-            public void menuSelected(MenuItem menuItem) {
-                // TODO: window
-            }
-        });
 
         return settings;
     }
@@ -80,7 +74,8 @@ public class ChatMenu extends CustomComponent {
 
     public final class MenuItemButton extends Button {
 
-//        private static final String STYLE_SELECTED = "selected"; // TODO: event on view change + unregister from MessageBroadcaster
+//        private static final String STYLE_SELECTED = "selected"; // TODO: event on view change
+
         private final MenuItemType menuItem;
 
         public MenuItemButton(final MenuItemType menuItem) {

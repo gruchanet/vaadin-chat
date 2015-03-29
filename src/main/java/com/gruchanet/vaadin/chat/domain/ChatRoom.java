@@ -5,8 +5,8 @@ import java.util.List;
 
 public class ChatRoom {
 
-    private List<User> users = new ArrayList<User>();
-    private List<Message> messages = new ArrayList<Message>();
+    private List<User> users = new ArrayList<>();
+    private List<Message> messages = new ArrayList<>();
 
     public List<User> getUsers() {
         return users;

@@ -9,4 +9,12 @@ public class HTMLFormatter {
     private static String formatTextToHTML(String text, String tag) {
         return "<" + tag + ">" + text + "</" + tag + ">";
     }
+
+    public static String sanitize(String text) {
+        return text
+                .replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace(" ", "&nbsp;");
+    }
 }

@@ -2,7 +2,6 @@ package com.gruchanet.vaadin.chat.helper.formatter.emoticon;
 
 public enum EmoticonEnclosureType {
     PIPE("|"),
-    DOUBLE_MULTIPLY("**"),
     TIDLE("~");
 
     private String enclosure;

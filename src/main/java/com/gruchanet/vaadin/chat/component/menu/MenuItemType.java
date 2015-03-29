@@ -1,31 +1,15 @@
 package com.gruchanet.vaadin.chat.component.menu;
 
-import com.gruchanet.vaadin.chat.helper.formatter.html.HTMLFormatter;
-import com.gruchanet.vaadin.chat.helper.formatter.html.TextFormatType;
-import com.gruchanet.vaadin.chat.views.ChatRoomView;
-import com.gruchanet.vaadin.chat.views.PrivateChatView;
 import com.vaadin.navigator.View;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Resource;
 
-public enum MenuItemType { // TODO: navigation
-    CREATE_ROOM( // TODO: ignore CREATE_ROOM MenuItemButton [3rd param -> null]
-            HTMLFormatter.formatText("Create room", TextFormatType.STRIKE),
-            FontAwesome.PLUS,
+public enum MenuItemType { // TODO: navigation (create room, join room, private chat)
+    HOME_PAGE(
+            "Home page",
+            FontAwesome.HOME,
             "",
             null
-    ),
-    JOIN_ROOM(
-            HTMLFormatter.formatText("Join room", TextFormatType.STRIKE),
-            FontAwesome.SIGN_IN,
-            "room",
-            ChatRoomView.class
-    ),
-    PRIVATE_CHAT(
-            HTMLFormatter.formatText("Private chat", TextFormatType.STRIKE),
-            FontAwesome.COMMENTS_O,
-            "private",
-            PrivateChatView.class
     );
 
     private final String description;

@@ -10,24 +10,24 @@ import java.util.concurrent.Executors;
 public class MessageBroadcaster {
 
     private static ExecutorService executorService = Executors.newSingleThreadExecutor();
-    private static List<MessageReceiver> receivers = new ArrayList<MessageReceiver>();
+    private static List<MessageListener> listeners = new ArrayList<>();
 
-    public static synchronized void registerListener(MessageReceiver receiver) {
-        receivers.add(receiver);
+    public static synchronized void registerListener(MessageListener listener) {
+        listeners.add(listener);
     }
 
-    public static synchronized void unregisterListener(MessageReceiver receiver) {
-        receivers.remove(receiver);
+    public static synchronized void unregisterListener(MessageListener listener) {
+        listeners.remove(listener);
     }
 
     public static synchronized void broadcast(final Message message) {
 
-        for (final MessageReceiver receiver : receivers) {
+        for (final MessageListener listener : listeners) {
             executorService.execute(new Runnable() {
 
                 @Override
                 public void run() {
-                    receiver.receiveMessage(message);
+                    listener.receiveMessage(message);
                 }
             });
         }

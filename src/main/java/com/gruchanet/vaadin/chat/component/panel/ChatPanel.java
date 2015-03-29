@@ -63,7 +63,7 @@ public class ChatPanel extends Panel {
     }
 
     private Component buildChatControls() {
-        final HorizontalLayout chatControls = new HorizontalLayout(); // TODO: input submit
+        final HorizontalLayout chatControls = new HorizontalLayout();
         chatControls.setMargin(true);
         chatControls.setWidth(100.0f, Unit.PERCENTAGE);
         chatControls.setStyleName("chat-controls");
@@ -106,7 +106,6 @@ public class ChatPanel extends Panel {
             @Override
             public void buttonClick(Button.ClickEvent clickEvent) {
                 UI.getCurrent().addWindow(new EmoticonsSelectWindow());
-                // TODO: emoticons handler
             }
         });
         emoticonsButton.setIcon(FontAwesome.SMILE_O);
@@ -114,7 +113,7 @@ public class ChatPanel extends Panel {
         return emoticonsButton;
     }
 
-//    private void renderMessages() {
+//    private void renderMessages() { // TODO: render past messages
 //        for (Message message : chatRoom.getMessages()) {
 //            renderMessage(message);
 //        }
