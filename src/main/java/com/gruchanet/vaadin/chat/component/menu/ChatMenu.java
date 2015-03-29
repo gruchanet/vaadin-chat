@@ -1,4 +1,4 @@
-package com.gruchanet.vaadin.chat.component.part.menu;
+package com.gruchanet.vaadin.chat.component.menu;
 
 import com.gruchanet.vaadin.chat.domain.User;
 import com.gruchanet.vaadin.chat.helper.Session;
@@ -80,7 +80,7 @@ public class ChatMenu extends CustomComponent {
 
     public final class MenuItemButton extends Button {
 
-        private static final String STYLE_SELECTED = "selected";
+//        private static final String STYLE_SELECTED = "selected"; // TODO: event on view change
         private final MenuItemType menuItem;
 
         public MenuItemButton(final MenuItemType menuItem) {

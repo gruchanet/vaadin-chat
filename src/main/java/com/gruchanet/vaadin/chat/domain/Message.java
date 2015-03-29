@@ -7,12 +7,12 @@ public class Message {
 
     private UUID id = UUID.randomUUID();
     private User user;
-    private String message;
+    private String text;
     private Date sentAt;
 
-    public Message(User user, String message) {
+    public Message(User user, String text) {
         this.user = user;
-        this.message = message;
+        this.text = text;
         this.sentAt = new Date();
     }
 
@@ -28,12 +28,12 @@ public class Message {
         this.user = user;
     }
 
-    public String getMessage() {
-        return message;
+    public String getText() {
+        return text;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public Date getSentAt() {

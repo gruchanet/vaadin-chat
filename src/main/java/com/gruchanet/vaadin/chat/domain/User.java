@@ -12,7 +12,11 @@ public class User { // TODO: set name & email, clicking on icon, email is requir
     private String gravatarURL;
 
     public User() {
-        this("", "");
+        this("");
+    }
+
+    public User(String name) {
+        this(name, "");
     }
 
     public User(String name, String email) {

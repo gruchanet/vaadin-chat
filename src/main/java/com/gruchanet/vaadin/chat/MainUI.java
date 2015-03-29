@@ -3,7 +3,7 @@ package com.gruchanet.vaadin.chat;
 import javax.servlet.annotation.WebServlet;
 
 import com.gruchanet.vaadin.chat.component.MainLayout;
-import com.gruchanet.vaadin.chat.component.part.menu.MenuItemType;
+import com.gruchanet.vaadin.chat.component.menu.MenuItemType;
 import com.gruchanet.vaadin.chat.domain.User;
 import com.gruchanet.vaadin.chat.helper.RandomStringGenerator;
 import com.gruchanet.vaadin.chat.helper.Session;

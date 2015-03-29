@@ -1,9 +1,8 @@
 package com.gruchanet.vaadin.chat.views;
 
-import com.gruchanet.vaadin.chat.component.part.panel.ChatPanel;
+import com.gruchanet.vaadin.chat.component.panel.ChatPanel;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.*;
 
 public class ChatRoomView extends VerticalLayout implements View {

@@ -1,5 +1,7 @@
-package com.gruchanet.vaadin.chat.component.part.menu;
+package com.gruchanet.vaadin.chat.component.menu;
 
+import com.gruchanet.vaadin.chat.helper.html.HTMLFormatter;
+import com.gruchanet.vaadin.chat.helper.html.TextFormatType;
 import com.gruchanet.vaadin.chat.views.ChatRoomView;
 import com.gruchanet.vaadin.chat.views.PrivateChatView;
 import com.vaadin.navigator.View;
@@ -7,9 +9,24 @@ import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Resource;
 
 public enum MenuItemType {
-    CREATE_ROOM("<s>Create room</s>", FontAwesome.PLUS, "", null), // TODO: ignore CREATE_ROOM MenuItemButton [3rd param -> null]
-    JOIN_ROOM("Join room", FontAwesome.SIGN_IN, "room", ChatRoomView.class),
-    PRIVATE_CHAT("<s>Private chat</s>", FontAwesome.COMMENTS_O, "private", PrivateChatView.class);
+    CREATE_ROOM( // TODO: ignore CREATE_ROOM MenuItemButton [3rd param -> null]
+            HTMLFormatter.formatText("Create room", TextFormatType.STRIKE),
+            FontAwesome.PLUS,
+            "",
+            null
+    ),
+    JOIN_ROOM(
+            "Join room",
+            FontAwesome.SIGN_IN,
+            "room",
+            ChatRoomView.class
+    ),
+    PRIVATE_CHAT(
+            HTMLFormatter.formatText("Private chat", TextFormatType.STRIKE),
+            FontAwesome.COMMENTS_O,
+            "private",
+            PrivateChatView.class
+    );
 
     private final String description;
     private final Resource icon;
