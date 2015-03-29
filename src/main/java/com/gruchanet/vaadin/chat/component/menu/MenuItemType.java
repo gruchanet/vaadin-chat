@@ -1,7 +1,7 @@
 package com.gruchanet.vaadin.chat.component.menu;
 
-import com.gruchanet.vaadin.chat.helper.html.HTMLFormatter;
-import com.gruchanet.vaadin.chat.helper.html.TextFormatType;
+import com.gruchanet.vaadin.chat.helper.formatter.html.HTMLFormatter;
+import com.gruchanet.vaadin.chat.helper.formatter.html.TextFormatType;
 import com.gruchanet.vaadin.chat.views.ChatRoomView;
 import com.gruchanet.vaadin.chat.views.PrivateChatView;
 import com.vaadin.navigator.View;

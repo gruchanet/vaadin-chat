@@ -1,4 +1,4 @@
-package com.gruchanet.vaadin.chat.helper.html;
+package com.gruchanet.vaadin.chat.helper.formatter.html;
 
 public class HTMLFormatter {
 

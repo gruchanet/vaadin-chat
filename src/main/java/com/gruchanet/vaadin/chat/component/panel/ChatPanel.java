@@ -1,14 +1,21 @@
 package com.gruchanet.vaadin.chat.component.panel;
 
+import com.gruchanet.vaadin.chat.component.emoticons.EmoticonType;
 import com.gruchanet.vaadin.chat.component.message.MessageLayout;
+import com.gruchanet.vaadin.chat.config.Config;
 import com.gruchanet.vaadin.chat.domain.ChatRoom;
 import com.gruchanet.vaadin.chat.domain.Message;
 import com.gruchanet.vaadin.chat.helper.Session;
+import com.gruchanet.vaadin.chat.helper.formatter.emoticon.EmoticonFormatter;
 import com.gruchanet.vaadin.chat.service.MessageBroadcaster;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.event.ShortcutListener;
+import com.vaadin.server.FileResource;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.server.Resource;
 import com.vaadin.ui.*;
+
+import java.io.File;
 
 public class ChatPanel extends Panel {
 
@@ -61,6 +68,7 @@ public class ChatPanel extends Panel {
         chatControls.setWidth(100.0f, Unit.PERCENTAGE);
         chatControls.setStyleName("chat-controls");
 
+        emoticonsButton = buildEmoticonsButton();
         messageInput = buildMessageInput();
         messageInput.setImmediate(true);
         messageInput.addShortcutListener(new ShortcutListener("Shortcut Name", ShortcutAction.KeyCode.ENTER, null) {
@@ -74,11 +82,10 @@ public class ChatPanel extends Panel {
                 }
             }
         });
-        emoticonsButton = buildEmoticonsButton();
 
         chatControls.addComponents(
-                messageInput,
-                emoticonsButton
+                emoticonsButton,
+                messageInput
         );
         chatControls.setExpandRatio(messageInput, 1.0f);
         chatControls.setComponentAlignment(messageInput, Alignment.MIDDLE_CENTER);
@@ -98,6 +105,7 @@ public class ChatPanel extends Panel {
         Button emoticonsButton = new Button("", new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent clickEvent) {
+                UI.getCurrent().addWindow(new EmoticonsSelectWindow());
                 // TODO: emoticons handler
             }
         });
@@ -122,5 +130,65 @@ public class ChatPanel extends Panel {
         UI.getCurrent().scrollIntoView(messagesContent);
 
         return this;
+    }
+
+    private class EmoticonsSelectWindow extends Window {
+
+        public EmoticonsSelectWindow() {
+            super("Select emoticon");
+            center();
+
+            setContent(buildEmoticonsGrid());
+        }
+
+        private Component buildEmoticonsGrid() {
+            GridLayout emoticonsGrid = new GridLayout(4, 4);
+            emoticonsGrid.setSpacing(true);
+            emoticonsGrid.setMargin(true);
+
+            putEmoticonsIntoGrid(emoticonsGrid);
+
+            return emoticonsGrid;
+        }
+
+        private GridLayout putEmoticonsIntoGrid(GridLayout emoticonsGrid) {
+            for (EmoticonType emoticon : EmoticonType.values()) {
+                if (emoticon.isShown()) {
+                    Resource resource = new FileResource(new File(Config.EMOTICONS_PATH + emoticon.getFile()));
+
+                    Button emoticonBtn = new Button(null, resource);
+                    emoticonBtn.setStyleName("borderless");
+                    emoticonBtn.setDescription(emoticon.getText());
+                    emoticonBtn.setData(emoticon);
+                    emoticonBtn.addClickListener(new Button.ClickListener() {
+                        @Override
+                        public void buttonClick(Button.ClickEvent clickEvent) {
+                            EmoticonType emoticon = (EmoticonType) clickEvent.getButton().getData();
+                            String message = messageInput.getValue();
+
+                            // get cursor position
+                            int inputCursorPosition = messageInput.getCursorPosition();
+                            if (inputCursorPosition > message.length()) {
+                                inputCursorPosition = 0;
+                            }
+
+                            // put emoticon text
+                            String emoticonText = " " + EmoticonFormatter.encloseWithPipe(emoticon.getText()) + " ";
+                            String newMessage = message.substring(0, inputCursorPosition) +
+                                    emoticonText +
+                                    message.substring(inputCursorPosition, messageInput.getValue().length());
+                            messageInput.setValue(newMessage);
+
+                            // regain focus & set cursor position
+                            messageInput.setCursorPosition(inputCursorPosition + emoticonText.length());
+                        }
+                    });
+
+                    emoticonsGrid.addComponent(emoticonBtn);
+                }
+            }
+
+            return emoticonsGrid;
+        }
     }
 }

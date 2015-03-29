@@ -1,20 +1,28 @@
 package com.gruchanet.vaadin.chat.component.message;
 
+import com.gruchanet.vaadin.chat.component.emoticons.EmoticonType;
 import com.gruchanet.vaadin.chat.domain.Message;
 import com.gruchanet.vaadin.chat.domain.User;
-import com.gruchanet.vaadin.chat.helper.html.HTMLFormatter;
-import com.gruchanet.vaadin.chat.helper.html.TextFormatType;
-import com.vaadin.server.ExternalResource;
-import com.vaadin.server.FontAwesome;
+import com.gruchanet.vaadin.chat.helper.formatter.html.HTMLFormatter;
+import com.gruchanet.vaadin.chat.helper.formatter.html.TextFormatType;
+import com.vaadin.server.*;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MessageLayout extends GridLayout {
 
+    private boolean renderEmoticons;
+
     public MessageLayout(Message message) {
+        this(message, true);
+    }
+
+    public MessageLayout(Message message, boolean renderEmoticons) {
         super(5, 5);
         setSizeFull();
         setStyleName("chat-message");
@@ -70,6 +78,27 @@ public class MessageLayout extends GridLayout {
     }
 
     private Component buildMessageText(String message) {
-        return new Label(message);
+        Pattern p = Pattern.compile("(?:\\|([^|]+)\\||(\\S+))\\s*"); // (?:\|([^|]+)\||(\S+))\s*
+        Matcher m = p.matcher(message);
+        StringBuffer s = new StringBuffer();
+        while (m.find()) {
+            String emoticon = m.group(1);
+
+            if (emoticon != null) {
+                m.appendReplacement(s, fileToEmoticonImage(EmoticonType.get(m.group(1)).getFile()));
+            } else {
+                m.appendReplacement(s, m.group(0));
+            }
+        }
+
+        return new Label(s.toString(), ContentMode.HTML);
+    }
+
+    private String fileToEmoticonImage(String file) {
+        String imageURI = Page.getCurrent().getLocation().resolve("/") +
+                VaadinServlet.getCurrent().getServletContext().getContextPath() +
+                "VAADIN/emoticons/" + file;
+
+        return "<img src=\"" + imageURI + "\">";
     }
 }
