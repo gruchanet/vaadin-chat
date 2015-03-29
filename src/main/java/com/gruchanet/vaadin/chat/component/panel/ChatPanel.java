@@ -16,7 +16,6 @@ public class ChatPanel extends Panel {
 
     private VerticalLayout messagesContent;
     private TextField messageInput;
-//    private Button submitButton;
     private Button emoticonsButton;
 
     public ChatPanel() {
@@ -75,17 +74,14 @@ public class ChatPanel extends Panel {
                 }
             }
         });
-//        Button submitButton = buildSubmitButton();
         emoticonsButton = buildEmoticonsButton();
 
         chatControls.addComponents(
                 messageInput,
-//                submitButton
                 emoticonsButton
         );
         chatControls.setExpandRatio(messageInput, 1.0f);
         chatControls.setComponentAlignment(messageInput, Alignment.MIDDLE_CENTER);
-//        chatControls.setComponentAlignment(submitButton, Alignment.MIDDLE_CENTER); // TODO: emoticon button
 
         return chatControls;
     }
@@ -97,21 +93,6 @@ public class ChatPanel extends Panel {
 
         return messageInput;
     }
-
-//    private Button buildSubmitButton() {
-//        Button submitButton = new Button("Send", new Button.ClickListener() {
-//            @Override
-//            public void buttonClick(Button.ClickEvent clickEvent) {
-//                MessageBroadcaster.broadcast(
-//                        new Message(Session.getCurrentUser(), messageInput.getValue())
-//                );
-//                messageInput.clear();
-//                // TODO: + input submit -> <enter>
-//            }
-//        });
-//
-//        return submitButton;
-//    }
 
     private Button buildEmoticonsButton() {
         Button emoticonsButton = new Button("", new Button.ClickListener() {
@@ -131,7 +112,15 @@ public class ChatPanel extends Panel {
 //        }
 //    }
 
-    public void renderMessage(Message message) {
+    public ChatPanel renderMessage(Message message) {
         messagesContent.addComponent(new MessageLayout(message));
+
+        return this;
+    }
+
+    public ChatPanel scrollToBottom() {
+        UI.getCurrent().scrollIntoView(messagesContent);
+
+        return this;
     }
 }

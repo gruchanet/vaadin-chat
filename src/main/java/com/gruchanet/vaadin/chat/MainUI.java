@@ -28,7 +28,7 @@ import com.vaadin.ui.*;
 @Push
 public class MainUI extends UI implements MessageReceiver {
 
-    private Navigator navigator;
+//    private Navigator navigator;
     private MainLayout layout;
 
     @Override
@@ -38,7 +38,7 @@ public class MainUI extends UI implements MessageReceiver {
         MessageBroadcaster.registerListener(this);
 
         initLayout();
-        initNavigator();
+//        initNavigator();
     }
 
     private void initializeUser() {
@@ -68,17 +68,17 @@ public class MainUI extends UI implements MessageReceiver {
         setContent(layout);
     }
 
-    private void initNavigator() {
+//    private void initNavigator() {
 //        navigator = new Navigator(this, layout.getBodyContent());
 //
 //        registerViews();
-    }
+//    }
 
-    private void registerViews() {
+//    private void registerViews() {
 //        navigator.addView("", new ChatRoomView()); // new EmptyChatView() // TODO: navigation
 //        navigator.addView(MenuItemType.JOIN_ROOM.getNavigationLink(), new ChatRoomView());
 //        navigator.addView(MenuItemType.PRIVATE_CHAT.getNavigationLink(), new PrivateChatView());
-    }
+//    }
 
     @Override
     public void receiveMessage(final Message message) {
@@ -86,7 +86,9 @@ public class MainUI extends UI implements MessageReceiver {
 
             @Override
             public void run() {
-                layout.getChatPanel().renderMessage(message);
+                layout.getChatPanel()
+                        .renderMessage(message)
+                        .scrollToBottom();
             }
         });
     }
