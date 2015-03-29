@@ -9,7 +9,7 @@ public class Gravatar {
     public static String buildGravatarURL(String email, int size) {
         String rating = "G";
 
-        return "http://www.gravatar.com/avatar/" + email + "?d=" + getDefaultURL(size) + "&s=" + size + "&r=" + rating;
+        return "http://www.gravatar.com/avatar/" + MD5.md5Hex(email) + "?d=" + getDefaultURL(size) + "&s=" + size + "&r=" + rating;
     }
 
     public static String getDefaultURL(int size) {

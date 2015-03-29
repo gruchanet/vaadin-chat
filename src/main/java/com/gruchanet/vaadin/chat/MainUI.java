@@ -9,18 +9,23 @@ import com.gruchanet.vaadin.chat.helper.RandomStringGenerator;
 import com.gruchanet.vaadin.chat.helper.Session;
 import com.gruchanet.vaadin.chat.service.MessageBroadcaster;
 import com.gruchanet.vaadin.chat.service.MessageListener;
+import com.gruchanet.vaadin.chat.view.ChatView;
+import com.gruchanet.vaadin.chat.view.LoginView;
 import com.vaadin.annotations.*;
+import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.*;
 
 @Theme("defaultTheme")
 @Widgetset("com.gruchanet.vaadin.chat.MyAppWidgetset")
-@Title("BeChat")
+@Title("MyChat")
 @Push
 public class MainUI extends UI implements MessageListener {
 
-//    private Navigator navigator;
+    public final static String CHAT_PAGE = "chat";
+
+    private Navigator navigator;
     private MainLayout layout;
 
     @Override
@@ -68,15 +73,13 @@ public class MainUI extends UI implements MessageListener {
     }
 
     private void initNavigator() {
-//        navigator = new Navigator(this, layout.getBodyContent());
-//
-//        registerViews();
+        navigator = new Navigator(this, layout);
+
+        registerViews();
     }
 
-    private void registerViews() { // TODO: navigation
-//        navigator.addView("", new ChatRoomView()); // new EmptyChatView()
-//        navigator.addView(MenuItemType.JOIN_ROOM.getNavigationLink(), new ChatRoomView());
-//        navigator.addView(MenuItemType.PRIVATE_CHAT.getNavigationLink(), new PrivateChatView());
+    private void registerViews() {
+        navigator.addView("", new LoginView());
     }
 
     @Override
@@ -85,14 +88,18 @@ public class MainUI extends UI implements MessageListener {
 
             @Override
             public void run() {
-                layout.getChatPanel()
-                        .renderMessage(message)
-                        .scrollToBottom();
+                ChatView chatView = layout.getChatView();
+
+                if (chatView != null) {
+                    chatView.getChatPanel()
+                            .renderMessage(message)
+                            .scrollToBottom();
+                }
             }
         });
     }
 
-    @WebServlet(urlPatterns = "/chat/*", name = "MainUIServlet", asyncSupported = true)
+    @WebServlet(urlPatterns = "/*", name = "MainUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = MainUI.class, productionMode = false)
     public static class MainUIServlet extends VaadinServlet {}
 }

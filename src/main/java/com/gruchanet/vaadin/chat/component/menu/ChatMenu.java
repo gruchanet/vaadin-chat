@@ -36,7 +36,7 @@ public class ChatMenu extends CustomComponent {
     }
 
     private Component buildTitle() {
-        Label logo = new Label("Be<strong>Chat</strong>", ContentMode.HTML);
+        Label logo = new Label("My<strong>Chat</strong>", ContentMode.HTML);
         logo.setSizeUndefined();
 
         HorizontalLayout logoWrapper = new HorizontalLayout(logo);

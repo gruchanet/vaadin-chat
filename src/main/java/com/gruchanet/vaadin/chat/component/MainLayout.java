@@ -1,31 +1,22 @@
 package com.gruchanet.vaadin.chat.component;
 
-import com.gruchanet.vaadin.chat.component.menu.ChatMenu;
-import com.gruchanet.vaadin.chat.component.panel.ChatPanel;
-import com.vaadin.ui.HorizontalLayout;
+import com.gruchanet.vaadin.chat.view.ChatView;
+import com.vaadin.ui.VerticalLayout;
 
-public class MainLayout extends HorizontalLayout {
-
-    private ChatMenu chatMenu = new ChatMenu();
-    private ChatPanel chatPanel = new ChatPanel();
+public class MainLayout extends VerticalLayout {
 
     public MainLayout() {
         setSizeFull();
         addStyleName("mainview");
-
-        initLayout();
     }
 
-    private void initLayout() {
-        addComponents(
-                chatMenu,
-                chatPanel
-        );
+    public ChatView getChatView() {
+        for (int i = 0; i < getComponentCount(); i++) {
+            if (getComponent(i) instanceof ChatView) {
+                return (ChatView) getComponent(i);
+            }
+        }
 
-        setExpandRatio(chatPanel, 1.0f);
-    }
-
-    public ChatPanel getChatPanel() {
-        return chatPanel;
+        return null;
     }
 }
