@@ -28,7 +28,7 @@ public class LoginView extends VerticalLayout implements View {
         loginForm.setSizeUndefined();
         loginForm.setSpacing(true);
 
-        loginForm = buildFields(loginForm);
+        buildFields(loginForm);
 
         return loginForm;
     }

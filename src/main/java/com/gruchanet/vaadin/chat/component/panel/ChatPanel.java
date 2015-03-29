@@ -25,6 +25,8 @@ public class ChatPanel extends Panel {
     private TextField messageInput;
     private Button emoticonsButton;
 
+    private EmoticonsSelectWindow emoticonsSelectWindow = new EmoticonsSelectWindow();
+
     public ChatPanel() {
         setCaption("Chat room");
         setIcon(FontAwesome.COMMENT);
@@ -105,7 +107,8 @@ public class ChatPanel extends Panel {
         Button emoticonsButton = new Button("", new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent clickEvent) {
-                UI.getCurrent().addWindow(new EmoticonsSelectWindow());
+                UI.getCurrent().removeWindow(emoticonsSelectWindow);
+                UI.getCurrent().addWindow(emoticonsSelectWindow);
             }
         });
         emoticonsButton.setIcon(FontAwesome.SMILE_O);
